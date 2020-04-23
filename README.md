@@ -104,6 +104,7 @@ WHERE s.start_time = t.start_time
     AND s.user_id = u.user_id
     AND t.year = 2018
     AND t.month = 11
+    AND s.length IS NOT NULL
 GROUP BY t.month, u.first_name
 ORDER BY mean_song_length desc, u.first_name
 LIMIT 10

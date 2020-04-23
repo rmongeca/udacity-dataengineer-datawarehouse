@@ -137,7 +137,7 @@ SONGPLAYS_INSERT = ("""
 INSERT INTO songplays (start_time, user_id, song_id, artist_id, session_id,
     length, location, user_agent)
 SELECT
-    (timestamp 'epoch' + se.ts * interval '1 second') AS start_time,
+    (timestamp 'epoch' + se.ts/1000 * interval '1 s') AS start_time,
     se.userId AS user_id,
     s.song_id,
     a.artist_id,
@@ -188,24 +188,24 @@ FROM staging_songs
 TIME_INSERT = ("""
 INSERT INTO time
 SELECT
-    (timestamp 'epoch' + ts * interval '1 second') AS start_time,
+    (timestamp 'epoch' + ts/1000 * interval '1 s') AS start_time,
     EXTRACT(hour
-        FROM (timestamp 'epoch' + ts * interval '1 second')
+        FROM (timestamp 'epoch' + ts/1000 * interval '1 s')
     ) AS hour,
     EXTRACT(day
-        FROM (timestamp 'epoch' + ts * interval '1 second')
+        FROM (timestamp 'epoch' + ts/1000 * interval '1 s')
     ) AS day,
     EXTRACT(week
-        FROM (timestamp 'epoch' + ts * interval '1 second')
+        FROM (timestamp 'epoch' + ts/1000 * interval '1 s')
     ) AS week,
     EXTRACT(month
-        FROM (timestamp 'epoch' + ts * interval '1 second')
+        FROM (timestamp 'epoch' + ts/1000 * interval '1 s')
     ) AS month,
     EXTRACT(year
-        FROM (timestamp 'epoch' + ts * interval '1 second')
+        FROM (timestamp 'epoch' + ts/1000 * interval '1 s')
     ) AS year,
     EXTRACT(weekday
-        FROM (timestamp 'epoch' + ts * interval '1 second')
+        FROM (timestamp 'epoch' + ts/1000 * interval '1 s')
     ) AS weekday
 FROM staging_events
 """)
