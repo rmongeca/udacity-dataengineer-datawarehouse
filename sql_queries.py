@@ -153,7 +153,7 @@ WHERE se.userId IS NOT NULL
 
 USERS_INSERT = ("""
 INSERT INTO users
-SELECT
+SELECT DISTINCT
     userId AS user_id,
     firstName AS first_name,
     lastName AS last_name,
@@ -165,7 +165,7 @@ WHERE userId IS NOT NULL
 
 SONGS_INSERT = ("""
 INSERT INTO songs
-SELECT
+SELECT DISTINCT
     song_id,
     title,
     artist_id,
@@ -176,7 +176,7 @@ FROM staging_songs
 
 ARTISTS_INSERT = ("""
 INSERT INTO artists
-SELECT
+SELECT DISTINCT
     artist_id,
     artist_name AS name,
     artist_location AS location,
@@ -187,7 +187,7 @@ FROM staging_songs
 
 TIME_INSERT = ("""
 INSERT INTO time
-SELECT
+SELECT DISTINCT
     (timestamp 'epoch' + ts/1000 * interval '1 s') AS start_time,
     EXTRACT(hour
         FROM (timestamp 'epoch' + ts/1000 * interval '1 s')
